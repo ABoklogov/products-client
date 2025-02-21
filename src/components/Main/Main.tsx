@@ -17,6 +17,7 @@ import { API_URL } from 'constants/urls';
 import GridItem from 'components/GridItem';
 import NotProducts from 'components/NotProducts';
 import ListItem from 'components/ListItem';
+import { deleteProduct, fetchProducts } from 'store/products/productsOperations';
 
 interface Props {
   products: Product[];
@@ -24,6 +25,7 @@ interface Props {
 
 
 function Main({ products }: Props) {
+  const dispatch = useAppDispatch();
   const layout = useAppSelector(state => state.view.value);
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(6);
@@ -38,10 +40,15 @@ function Main({ products }: Props) {
     if (!product) return;
 
     return layout === View.LIST ? (
-      <ListItem product={product} />
+      <ListItem product={product} onDeleteProduct={onDeleteProduct}/>
     ) : (
-      <GridItem product={product} />
+      <GridItem product={product} onDeleteProduct={onDeleteProduct}/>
     );
+  };
+
+  const onDeleteProduct = async (id: number) => {
+    const res = await dispatch(deleteProduct(id));
+    if (res) dispatch(fetchProducts());
   };
 
   return (

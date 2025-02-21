@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useFormik } from 'formik';
 import { useAppDispatch } from 'store/hooks';
-import { addEvent } from 'store/products/productsOperations';
+// import { addEvent } from 'store/products/productsOperations';
 import { InputText } from "primereact/inputtext";
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
@@ -19,7 +19,7 @@ function AddEventForm() {
     const id = randomUUID();
     const date = new Date().toLocaleString();
 
-    dispatch(addEvent({ id, date, importance, equipment, message, responsible }));
+    // dispatch(addEvent({ id, date, importance, equipment, message, responsible }));
 
     toast.current.show({ severity: 'success', summary: 'Событие добавлено' });
   };

@@ -5,9 +5,10 @@ import s from './GridItem.module.css';
 
 interface Props {
   product: Product;
+  onDeleteProduct: (id: number) => void;
 };
 
-function GridItem({product}: Props) {
+function GridItem({ product, onDeleteProduct}: Props) {
   return (
     <div className="col-12 sm:col-6 lg:col-12 xl:col-4 p-2" key={product.id}>
       <div className="p-4 border-1 surface-border surface-card border-round">
@@ -16,7 +17,7 @@ function GridItem({product}: Props) {
             <i className="pi pi-tag"></i>
             <span className="font-semibold">{product.vendorCode}</span>
           </div>
-          <Button icon="pi pi-times" rounded text severity="danger" aria-label="Cancel" />
+          <Button icon="pi pi-times" rounded text severity="danger" aria-label="Cancel" onClick={() => onDeleteProduct(product.id)}/>
         </div>
         <div className="flex flex-column align-items-center gap-3 py-5">
           <ImageProduct image={product.picture} name={product.name} />

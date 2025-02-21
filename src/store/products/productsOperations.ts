@@ -1,9 +1,6 @@
 import { Dispatch } from '@reduxjs/toolkit';
 import type { RootState } from 'store';
-import { Product } from 'interfaces/Products.interface';
 import API from "services/api";
-// import { setLocalStorage } from 'helpers/setLocalStorage';
-// import { getLocalStorage } from 'helpers/getLocalStorage';
 import {
   setProducts,
   setLoading,
@@ -30,19 +27,17 @@ export const fetchProducts = () => async (dispatch: Dispatch) => {
   };
 };
 
-
-// добавление события
 export const deleteProduct = (id: number) => async (dispatch: Dispatch, getState: () => RootState) => {
   try {
     dispatch(setLoading(true));
-    const { data } = await API.fetchProducts();
+    const res = await API.deleteProduct(id);
 
-    if (data === undefined) {
+    if (!res) {
       throw new Error('Server Error!');
     } else {
       dispatch(setLoading(false));
       dispatch(setError(''));
-      dispatch(setProducts(data));
+      return res
     };
   } catch (error) {
     if (error instanceof Error) {

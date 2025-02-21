@@ -6,13 +6,14 @@ import s from './ListItem.module.css';
 
 interface Props {
   product: Product;
+  onDeleteProduct: (id: number) => void;
 };
 
-function ListItem({product}: Props) {
+function ListItem({ product, onDeleteProduct }: Props) {
   return (
     <div className="col-12" key={product.id}>
       <div className={s.deleteButton}>
-        <Button icon="pi pi-times" rounded text severity="danger" aria-label="Cancel" />
+        <Button icon="pi pi-times" rounded text severity="danger" aria-label="Cancel" onClick={() => onDeleteProduct(product.id)} />
       </div>
       <div className={classNames('flex flex-column xl:flex-row xl:align-items-start p-4 gap-4')}>
         <ImageProduct image={product.picture} name={product.name} />

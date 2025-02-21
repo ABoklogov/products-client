@@ -1,0 +1,7 @@
+.mainContainer {
+  margin-top: 30px;
+}
+
+.mainContainer>[class~="p-progress-spinner"] {
+  display: block;
+}

@@ -7,6 +7,8 @@ import { Dropdown } from 'primereact/dropdown';
 import React from 'react';
 import { changeSort } from 'store/products/productsOperations';
 import { SORT_OPTIONS } from 'constants/sort';
+import { Button } from 'primereact/button';
+import { toggleSidbarFilter } from 'store/view/viewSlice';
 
 interface Props {
   view: View;
@@ -24,16 +26,28 @@ const Header = React.memo(function Header({ view }: Props) {
   };
 
   return (
-    <div className="flex justify-content-between">
-      <Dropdown 
-        value={sort} 
-        onChange={onChangeSort} 
-        options={SORT_OPTIONS} 
-        optionLabel="name" 
-        placeholder="Сортировать по" 
-        className="w-full md:w-14rem" 
-      />
-      <DataViewLayoutOptions layout={view} onChange={onChangeView} />
+    <div className='flex justify-content-between flex-wrap'>
+      <div className="flex justify-content-between">
+        <Button
+          icon="pi pi-filter"
+          rounded
+          onClick={() => dispatch(toggleSidbarFilter(true))}
+        />
+        <div className={s.sort}>
+          <Dropdown 
+            value={sort} 
+            onChange={onChangeSort} 
+            options={SORT_OPTIONS} 
+            optionLabel="name" 
+            placeholder="Сортировать по" 
+            className="w-full md:w-14rem" 
+          />
+        </div>
+      </div>
+
+      <div className={s.viewBtn}>
+        <DataViewLayoutOptions layout={view} onChange={onChangeView} />
+      </div>
     </div>
 );
 });

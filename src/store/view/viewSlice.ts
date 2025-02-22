@@ -5,11 +5,13 @@ import { View } from 'interfaces/View';
 interface ViewState {
   value: View;
   sidebar: boolean;
+  sidebarFilter: boolean;
 };
 
 const initialState: ViewState = {
   value: View.GRID,
   sidebar: false,
+  sidebarFilter: false,
 };
 
 export const viewSlice = createSlice({
@@ -24,7 +26,15 @@ export const viewSlice = createSlice({
       ...state,
       sidebar: action.payload,
     }),
+    toggleSidbarFilter: (state, action: PayloadAction<boolean>) => ({
+      ...state,
+      sidebarFilter: action.payload,
+    }),
   },
 });
 
-export const { setView, toggleSidbar } = viewSlice.actions;
+export const { 
+  setView, 
+  toggleSidbar, 
+  toggleSidbarFilter 
+} = viewSlice.actions;

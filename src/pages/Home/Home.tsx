@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { calcSort, fetchProducts } from 'store/products/productsOperations';
-import { toggleSidbar } from 'store/view/viewSlice';
+import { toggleSidbar, toggleSidbarFilter } from 'store/view/viewSlice';
 import Header from 'components/Header';
 import AddEventForm from 'components/AddEventForm';
 import { Toast } from 'primereact/toast';
@@ -11,10 +11,12 @@ import { Sidebar } from 'primereact/sidebar';
 import s from './Home.module.css';
 import Main from 'components/Main';
 import { calcView } from 'store/view/viewOperations';
+import FiltersView from 'components/FiltersView';
 
 function Home() {
   const products = useAppSelector(state => state.products);
   const visibleSidebar = useAppSelector(state => state.view.sidebar);
+  const visibleSidebarFilter = useAppSelector(state => state.view.sidebarFilter);
   const sort = useAppSelector(state => state.products.sort);
   const dispatch = useAppDispatch();
   const toast = useRef<Toast>(null);
@@ -47,11 +49,18 @@ function Home() {
 
   return (
     <>
-      {/* <Header /> */}
       <div className={s.mainContainer}>
         {products.isLoading ? <ProgressSpinner /> : <Main products={products.items} />}
       </div>
 
+      <Sidebar
+        visible={visibleSidebarFilter}
+        onHide={() => dispatch(toggleSidbarFilter(false))}
+        className="w-full md:w-20rem lg:w-30rem"
+        position="left"
+      >
+        <FiltersView />
+      </Sidebar>
       <Sidebar
         visible={visibleSidebar}
         onHide={() => dispatch(toggleSidbar(false))}

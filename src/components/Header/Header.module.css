@@ -1,0 +1,9 @@
+.sort {
+  margin-left: 15px;
+}
+
+@media screen and (max-width: 500px) {
+  .viewBtn {
+    margin-left: auto;
+  }
+}

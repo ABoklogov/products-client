@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit'
+import { PAGE_OPTIONS } from 'constants/pagenation';
 import { DataProducts } from 'interfaces/Api.interface';
 import { Product, SortOptions } from 'interfaces/Products.interface';
 
@@ -17,7 +18,7 @@ const initialState: ProductsState = {
   items: [],
   total: 0,
   page: 1,
-  limit: 6,
+  limit: PAGE_OPTIONS[0],
   sort: null,
   isLoading: false,
   error: '',
@@ -31,8 +32,14 @@ export const productsSlice = createSlice({
       ...state,
       items: [...action.payload.products],
       total: action.payload.total,
-      limit: action.payload.limit,
-      page: action.payload.page,
+    }),
+    setLimit: (state, action: PayloadAction<number>) => ({
+      ...state,
+      limit: action.payload,
+    }),
+    setPage: (state, action: PayloadAction<number>) => ({
+      ...state,
+      page: action.payload,
     }),
     setSort: (state, action: PayloadAction<SortOptions>) => ({
       ...state,
@@ -51,6 +58,8 @@ export const productsSlice = createSlice({
 
 export const {
   setProducts,
+  setLimit,
+  setPage,
   setSort,
   setLoading,
   setError,

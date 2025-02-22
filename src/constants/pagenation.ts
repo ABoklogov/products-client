@@ -1,0 +1,1 @@
+export const PAGE_OPTIONS = [6, 12, 24];

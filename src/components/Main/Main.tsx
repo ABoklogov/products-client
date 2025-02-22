@@ -17,7 +17,9 @@ import { API_URL } from 'constants/urls';
 import GridItem from 'components/GridItem';
 import NotProducts from 'components/NotProducts';
 import ListItem from 'components/ListItem';
-import { deleteProduct, fetchProducts } from 'store/products/productsOperations';
+import { changeLimit, changePage, deleteProduct, fetchProducts } from 'store/products/productsOperations';
+import { PAGE_OPTIONS } from 'constants/pagenation';
+import { setLimit, setPage } from 'store/products/productsSlice';
 
 interface Props {
   products: Product[];
@@ -27,13 +29,15 @@ interface Props {
 function Main({ products }: Props) {
   const dispatch = useAppDispatch();
   const layout = useAppSelector(state => state.view.value);
-  const [first, setFirst] = useState(0);
-  const [rows, setRows] = useState(6);
+  const total = useAppSelector(state => state.products.total);
+  const limit = useAppSelector(state => state.products.limit);
+  const page = useAppSelector(state => state.products.page);
+
   const toast = useRef<Toast>(null);
 
   const onPageChange = (event: PaginatorPageChangeEvent) => {
-    setFirst(event.first);
-    setRows(event.rows);
+    dispatch(changePage(event.page + 1));
+    dispatch(changeLimit(event.rows));
   };
 
   const itemTemplate = (product: Product, layout: View) => {
@@ -67,13 +71,13 @@ function Main({ products }: Props) {
       ) : (
         <NotProducts />
       )}
-      
+
       {products.length > 0 && (
         <Paginator
-          first={first}
-          rows={rows}
-          totalRecords={products.length}
-          rowsPerPageOptions={[6, 12, 24]}
+          first={(page - 1) * limit}
+          rows={limit}
+          totalRecords={total}
+          rowsPerPageOptions={PAGE_OPTIONS}
           onPageChange={onPageChange}
         />
       )}

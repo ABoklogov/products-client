@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { calcSort, fetchProducts } from 'store/products/productsOperations';
+import { calcLimit, calcPage, calcSort, fetchProducts } from 'store/products/productsOperations';
 import { toggleSidbar, toggleSidbarFilter } from 'store/view/viewSlice';
-import Header from 'components/Header';
 import AddEventForm from 'components/AddEventForm';
 import { Toast } from 'primereact/toast';
 import { Button } from 'primereact/button';
@@ -14,17 +13,21 @@ import { calcView } from 'store/view/viewOperations';
 import FiltersView from 'components/FiltersView';
 
 function Home() {
+  const dispatch = useAppDispatch();
+  const toast = useRef<Toast>(null);
   const products = useAppSelector(state => state.products);
   const visibleSidebar = useAppSelector(state => state.view.sidebar);
   const visibleSidebarFilter = useAppSelector(state => state.view.sidebarFilter);
   const sort = useAppSelector(state => state.products.sort);
-  const dispatch = useAppDispatch();
-  const toast = useRef<Toast>(null);
+  const page = useAppSelector(state => state.products.page);
+  const limit = useAppSelector(state => state.products.limit);
   const [firstRender, setFirstRender] = useState(true);
   
   useEffect(() => {
     dispatch(calcView());
     dispatch(calcSort());
+    dispatch(calcLimit());
+    dispatch(calcPage());
     dispatch(fetchProducts());
   }, []);
 
@@ -34,7 +37,7 @@ function Home() {
       return
     };
     dispatch(fetchProducts());
-  }, [sort]);
+  }, [sort, limit, page]);
 
   useEffect(() => {
     if (products.error) showToast(products.error);

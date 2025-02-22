@@ -68,13 +68,15 @@ function Main({ products }: Props) {
         <NotProducts />
       )}
       
-      <Paginator
-        first={first}
-        rows={rows}
-        totalRecords={products.length}
-        rowsPerPageOptions={[6, 12, 24]}
-        onPageChange={onPageChange}
-      />
+      {products.length > 0 && (
+        <Paginator
+          first={first}
+          rows={rows}
+          totalRecords={products.length}
+          rowsPerPageOptions={[6, 12, 24]}
+          onPageChange={onPageChange}
+        />
+      )}
     </>
   );
 };

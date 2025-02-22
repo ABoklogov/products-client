@@ -7,10 +7,14 @@ import {
   setError,
 } from './productsSlice';
 
-export const fetchProducts = () => async (dispatch: Dispatch) => {
+export const fetchProducts = () => async (
+  dispatch: Dispatch,
+  getState: () => RootState
+) => {
+  const { products } = getState();
   try {
     dispatch(setLoading(true));
-    const { data } = await API.fetchProducts();
+    const { data } = await API.fetchProducts(products.sort?.code ?? undefined);
 
     if (data === undefined) {
       throw new Error('Server Error!');

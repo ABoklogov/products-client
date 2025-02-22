@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { fetchProducts } from 'store/products/productsOperations';
@@ -10,18 +10,29 @@ import { Button } from 'primereact/button';
 import { Sidebar } from 'primereact/sidebar';
 import s from './Home.module.css';
 import Main from 'components/Main';
-import { calcTheView } from 'store/view/viewOperations';
+import { calcSort, calcView } from 'store/view/viewOperations';
 
 function Home() {
   const products = useAppSelector(state => state.products);
   const visibleSidebar = useAppSelector(state => state.view.sidebar);
+  const sort = useAppSelector(state => state.products.sort);
   const dispatch = useAppDispatch();
   const toast = useRef<Toast>(null);
+  const [firstRender, setFirstRender] = useState(true);
+  
+  useEffect(() => {
+    dispatch(calcView());
+    dispatch(calcSort());
+    dispatch(fetchProducts());
+  }, []);
 
   useEffect(() => {
+    if (firstRender) {
+      setFirstRender(false);
+      return
+    };
     dispatch(fetchProducts());
-    dispatch(calcTheView());
-  }, []);
+  }, [sort]);
 
   useEffect(() => {
     if (products.error) showToast(products.error);

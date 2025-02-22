@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { fetchProducts } from 'store/products/productsOperations';
+import { calcSort, fetchProducts } from 'store/products/productsOperations';
 import { toggleSidbar } from 'store/view/viewSlice';
 import Header from 'components/Header';
 import AddEventForm from 'components/AddEventForm';
@@ -10,7 +10,7 @@ import { Button } from 'primereact/button';
 import { Sidebar } from 'primereact/sidebar';
 import s from './Home.module.css';
 import Main from 'components/Main';
-import { calcSort, calcView } from 'store/view/viewOperations';
+import { calcView } from 'store/view/viewOperations';
 
 function Home() {
   const products = useAppSelector(state => state.products);

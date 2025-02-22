@@ -5,7 +5,14 @@ import {
   setProducts,
   setLoading,
   setError,
+  setSort,
 } from './productsSlice';
+import { getUrlParameter } from 'helpers/getUrlParameter';
+import { Sort, SortOptions } from 'interfaces/Products.interface';
+import { setUrlParameter } from 'helpers/setUrlParameter';
+import { SORT_OPTIONS } from 'constants/sort';
+
+const KEY_SORT = 'sort';
 
 export const fetchProducts = () => async (
   dispatch: Dispatch,
@@ -49,4 +56,17 @@ export const deleteProduct = (id: number) => async (dispatch: Dispatch, getState
       dispatch(setError(error.message));
     };
   };
+};
+
+export const calcSort = () => async (dispatch: Dispatch) => {
+  const sort: any = getUrlParameter(KEY_SORT);
+
+  if (!sort) return;
+  const sortOption = SORT_OPTIONS.find(el => el.code === sort);
+  if (sortOption) dispatch(setSort(sortOption));
+};
+
+export const changeSort = (sort: SortOptions) => async (dispatch: Dispatch) => {
+  setUrlParameter(KEY_SORT, sort.code);
+  dispatch(setSort(sort));
 };

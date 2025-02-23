@@ -19,6 +19,7 @@ interface ProductsState {
     [key: string]: boolean | [number, number] | null,
   },
   isLoading: boolean;
+  isLoadingAddProduct: boolean;
   error: string;
 };
 
@@ -35,6 +36,7 @@ const initialState: ProductsState = {
     picture: null, 
   },
   isLoading: false,
+  isLoadingAddProduct: false,
   error: '',
 };
 
@@ -86,6 +88,10 @@ export const productsSlice = createSlice({
       ...state,
       isLoading: action.payload,
     }),
+    setLoadingAddProduct: (state, action: PayloadAction<boolean>) => ({
+      ...state,
+      isLoadingAddProduct: action.payload,
+    }),
     setError: (state, action: PayloadAction<string>) => ({
       ...state,
       error: action.payload,
@@ -102,5 +108,6 @@ export const {
   clearFilters,
   setOthersFilters,
   setLoading,
+  setLoadingAddProduct,
   setError,
 } = productsSlice.actions;

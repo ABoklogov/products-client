@@ -11,6 +11,7 @@ import GridItem from 'components/GridItem';
 import ListItem from 'components/ListItem';
 import { changeLimit, changePage, deleteProduct, fetchProducts } from 'store/products/productsOperations';
 import { PAGE_OPTIONS } from 'constants/pagenation';
+import { setPage } from 'store/products/productsSlice';
 
 interface Props {
   products: Product[];
@@ -42,6 +43,7 @@ function Main({ products }: Props) {
 
   const onDeleteProduct = async (id: number) => {
     const res = await dispatch(deleteProduct(id));
+    if (page > 1 && total > 0) dispatch(setPage(page - 1));
     if (res) dispatch(fetchProducts());
   };
 

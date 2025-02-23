@@ -3,7 +3,7 @@ import { ProgressSpinner } from 'primereact/progressspinner';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { calcLimit, calcPage, calcSort, fetchProducts } from 'store/products/productsOperations';
 import { toggleSidbar, toggleSidbarFilter } from 'store/view/viewSlice';
-import AddEventForm from 'components/AddEventForm';
+import AddProductForm from 'components/AddProductForm';
 import { Toast } from 'primereact/toast';
 import { Button } from 'primereact/button';
 import { Sidebar } from 'primereact/sidebar';
@@ -41,14 +41,17 @@ function Home() {
   }, [sort, limit, page, filter]);
 
   useEffect(() => {
-    if (products.error) showToast(products.error);
+    if (products.error) showToast({
+      severity: 'error', 
+      summary: 'Error',
+      detail: products.error,
+      life: 3000,
+    });
   }, [products.error]);
 
-  const showToast = (message: string) => {
+  const showToast = (options: any) => {
     if (!toast.current) throw Error("toast is not assigned");
-    toast.current.show({
-      severity: 'error', summary: 'Error', detail: message, life: 3000
-    });
+    toast.current.show(options);
   };
 
   return (
@@ -71,7 +74,7 @@ function Home() {
         className="w-full md:w-20rem lg:w-30rem"
         position="right"
       >
-        <AddEventForm />
+        <AddProductForm showToast={showToast}/>
       </Sidebar>
       <Button
         icon="pi pi-plus"

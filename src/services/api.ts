@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { API_URL } from 'constants/urls';
 import { DataProducts } from 'interfaces/Api.interface';
-import { Product, SortOptions, } from 'interfaces/Products.interface';
+import { DataAddProduct, Product, SortOptions, } from 'interfaces/Products.interface';
 
 type FetchProducts = (
   page: number,
@@ -11,9 +11,9 @@ type FetchProducts = (
   filterDescription: boolean | null,
   filterSale: boolean | null,
   filterPicture: boolean | null,
-
 ) => Promise<AxiosResponse<DataProducts>>;
 type DeleteProduct = (id: number) => Promise<AxiosResponse<Product>>;
+type AddProduct = (body: DataAddProduct) => Promise<AxiosResponse<Product>>;
 
 const fetchProducts: FetchProducts = async function (
   page, 
@@ -56,7 +56,15 @@ const deleteProduct: DeleteProduct = async function (id) {
   return res;
 };
 
+const addProduct: AddProduct = async function (body) {
+  const res = axios.post(`${API_URL}/products/`,
+    body
+  );
+  return res;
+};
+
 export default {
   fetchProducts,
-  deleteProduct
+  deleteProduct,
+  addProduct,
 };

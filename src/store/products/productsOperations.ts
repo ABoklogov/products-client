@@ -4,13 +4,14 @@ import API from "services/api";
 import {
   setProducts,
   setLoading,
+  setLoadingAddProduct,
   setError,
   setSort,
   setLimit,
   setPage,
 } from './productsSlice';
 import { getUrlParameter } from 'helpers/getUrlParameter';
-import { Sort, SortOptions } from 'interfaces/Products.interface';
+import { DataAddProduct, SortOptions } from 'interfaces/Products.interface';
 import { setUrlParameter } from 'helpers/setUrlParameter';
 import { SORT_OPTIONS } from 'constants/sort';
 
@@ -50,7 +51,27 @@ export const fetchProducts = () => async (
   };
 };
 
-export const deleteProduct = (id: number) => async (dispatch: Dispatch, getState: () => RootState) => {
+export const addProduct = (body: DataAddProduct) => async (dispatch: Dispatch, getState: () => RootState) => {
+  try {
+    dispatch(setLoadingAddProduct(true));
+    const { data } = await API.addProduct(body);
+
+    if (data === undefined) {
+      throw new Error('Server Error!');
+    } else {
+      dispatch(setLoadingAddProduct(false));
+      dispatch(setError(''));
+      return data
+    };
+  } catch (error) {
+    if (error instanceof Error) {
+      dispatch(setLoadingAddProduct(false));
+      dispatch(setError(error.message));
+    };
+  };
+};
+
+export const deleteProduct = (id: number) => async (dispatch: Dispatch) => {
   try {
     dispatch(setLoading(true));
     const res = await API.deleteProduct(id);

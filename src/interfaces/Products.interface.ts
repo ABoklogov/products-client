@@ -23,3 +23,10 @@ export interface OthersFilters {
   picture: boolean | null,
 };
 
+export interface DataAddProduct {
+  name: string;
+  vendorCode: string;
+  price: number;
+  description: string | null;
+  sale: number | null;
+};

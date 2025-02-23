@@ -53,6 +53,7 @@ function FiltersView() {
   const onChangePrice = (e: any) => {
     setPrice(e.value)
   };
+  
   const onSubmitFilters = () => {
     const description = selectedFilters.find(el => el.key === 'description');
     const notDescription = selectedFilters.find(el => el.key === 'notDescription');

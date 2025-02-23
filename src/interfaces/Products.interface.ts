@@ -17,3 +17,9 @@ export enum Sort {
 
 export type SortOptions = { name: string, code: Sort };
 
+export interface OthersFilters {
+  description: boolean | null,
+  sale: boolean | null,
+  picture: boolean | null,
+};
+

@@ -29,6 +29,7 @@ function FilterPrice({
           <InputNumber 
             value={price[0]} 
             onValueChange={onChangeStartPrice} 
+            disabled
             inputId="currency-us"
             mode="currency" 
             currency="USD" 
@@ -39,6 +40,7 @@ function FilterPrice({
           <label htmlFor="integeronly" className="font-bold block mb-2">до</label>
           <InputNumber 
             value={price[1]} 
+            disabled
             onValueChange={onChangeEndPrice} 
             inputId="currency-us"
             mode="currency" 
@@ -47,7 +49,7 @@ function FilterPrice({
           />
         </div>
       </div>
-      <div className="card flex justify-content-center align-items-center">
+      <div className="card flex justify-content-around align-items-center">
         <Slider 
           value={price} 
           onChange={onChange} 

@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { PAGE_OPTIONS } from 'constants/pagenation';
 import { DataProducts } from 'interfaces/Api.interface';
-import { Product, SortOptions } from 'interfaces/Products.interface';
+import { OthersFilters, Product, SortOptions } from 'interfaces/Products.interface';
+
 
 interface ProductsState {
   items: Product[];
@@ -12,9 +13,10 @@ interface ProductsState {
   sort: SortOptions | null;
   filter: {
     price: [number, number] | null,
-    description: boolean,
-    sale: boolean,
-    picture: boolean
+    description: boolean | null,
+    sale: boolean | null,
+    picture: boolean | null,
+    [key: string]: boolean | [number, number] | null,
   },
   isLoading: boolean;
   error: string;
@@ -28,9 +30,9 @@ const initialState: ProductsState = {
   sort: null,
   filter: {
     price: null,
-    description: true,
-    sale: true,
-    picture: true
+    description: null,
+    sale: null,
+    picture: null, 
   },
   isLoading: false,
   error: '',
@@ -64,13 +66,20 @@ export const productsSlice = createSlice({
         price: action.payload
       }
     }),
+    setOthersFilters: (state, action: PayloadAction<OthersFilters>) => ({
+      ...state,
+      filter: {
+        ...state.filter,
+        ...action.payload
+      }
+    }),
     clearFilters: (state) => ({
       ...state,
       filter: {
         price: null,
-        description: true,
-        sale: true,
-        picture: true
+        description: null,
+        sale: null,
+        picture: null,
       }
     }),
     setLoading: (state, action: PayloadAction<boolean>) => ({
@@ -91,6 +100,7 @@ export const {
   setFilterPrice,
   setSort,
   clearFilters,
+  setOthersFilters,
   setLoading,
   setError,
 } = productsSlice.actions;

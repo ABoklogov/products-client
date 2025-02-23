@@ -10,6 +10,12 @@ interface ProductsState {
   page: number;
   limit: number;
   sort: SortOptions | null;
+  filter: {
+    price: [number, number] | null,
+    description: boolean,
+    sale: boolean,
+    picture: boolean
+  },
   isLoading: boolean;
   error: string;
 };
@@ -20,6 +26,12 @@ const initialState: ProductsState = {
   page: 1,
   limit: PAGE_OPTIONS[0],
   sort: null,
+  filter: {
+    price: null,
+    description: true,
+    sale: true,
+    picture: true
+  },
   isLoading: false,
   error: '',
 };
@@ -45,6 +57,22 @@ export const productsSlice = createSlice({
       ...state,
       sort: action.payload,
     }),
+    setFilterPrice: (state, action: PayloadAction<[number, number]>) => ({
+      ...state,
+      filter: {
+        ...state.filter,
+        price: action.payload
+      }
+    }),
+    clearFilters: (state) => ({
+      ...state,
+      filter: {
+        price: null,
+        description: true,
+        sale: true,
+        picture: true
+      }
+    }),
     setLoading: (state, action: PayloadAction<boolean>) => ({
       ...state,
       isLoading: action.payload,
@@ -60,7 +88,9 @@ export const {
   setProducts,
   setLimit,
   setPage,
+  setFilterPrice,
   setSort,
+  clearFilters,
   setLoading,
   setError,
 } = productsSlice.actions;

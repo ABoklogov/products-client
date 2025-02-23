@@ -21,6 +21,7 @@ function Home() {
   const sort = useAppSelector(state => state.products.sort);
   const page = useAppSelector(state => state.products.page);
   const limit = useAppSelector(state => state.products.limit);
+  const filter = useAppSelector(state => state.products.filter);
   const [firstRender, setFirstRender] = useState(true);
   
   useEffect(() => {
@@ -37,7 +38,7 @@ function Home() {
       return
     };
     dispatch(fetchProducts());
-  }, [sort, limit, page]);
+  }, [sort, limit, page, filter]);
 
   useEffect(() => {
     if (products.error) showToast(products.error);

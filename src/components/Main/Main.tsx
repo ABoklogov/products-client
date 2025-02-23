@@ -1,30 +1,20 @@
-import { useState, useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
-// import { readEvents } from 'store/products/productsOperations';
 import { Product } from 'interfaces/Products.interface';
 import s from './CardList.module.css';
 import { Paginator, PaginatorPageChangeEvent } from 'primereact/paginator';
-import { Badge } from 'primereact/badge';
-import CardContent from 'components/CardContent';
-import { useKeyPress } from 'hooks/useKeyPress';
 import { Toast } from 'primereact/toast';
-import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
+import { DataView } from 'primereact/dataview';
 import Header from 'components/Header';
 import { View } from 'interfaces/View';
-import { Button } from 'primereact/button';
-import { classNames } from 'primereact/utils';
-import { API_URL } from 'constants/urls';
 import GridItem from 'components/GridItem';
-import NotProducts from 'components/NotProducts';
 import ListItem from 'components/ListItem';
 import { changeLimit, changePage, deleteProduct, fetchProducts } from 'store/products/productsOperations';
 import { PAGE_OPTIONS } from 'constants/pagenation';
-import { setLimit, setPage } from 'store/products/productsSlice';
 
 interface Props {
   products: Product[];
 };
-
 
 function Main({ products }: Props) {
   const dispatch = useAppDispatch();
@@ -59,19 +49,16 @@ function Main({ products }: Props) {
     <>
       <Toast ref={toast} />
 
-      {products.length > 0 ? (
-        <div className="card">
-          <DataView 
-            value={products} 
-            itemTemplate={itemTemplate}
-            layout={layout} 
-            header={<Header view={layout}/>} 
-          />
-        </div>
-      ) : (
-        <NotProducts />
-      )}
-
+      <div className="card">
+        <DataView 
+          value={products} 
+          itemTemplate={itemTemplate}
+          layout={layout} 
+          header={<Header view={layout}/>} 
+          emptyMessage={'Нет доступных товаров'}
+        />
+      </div>
+    
       {products.length > 0 && (
         <Paginator
           first={(page - 1) * limit}

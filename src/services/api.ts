@@ -7,15 +7,17 @@ type FetchProducts = (
   page: number,
   limit: number,
   sort?: Sort,
+  filterPrice?: [number, number]
 ) => Promise<AxiosResponse<DataProducts>>;
 type DeleteProduct = (id: number) => Promise<AxiosResponse<Product>>;
 
-const fetchProducts: FetchProducts = async function (page, limit, sort) {
+const fetchProducts: FetchProducts = async function (page, limit, sort, filterPrice) {
   const currentPage = `page=${page}`;
   const currentLimit = `limit=${limit}`;
   const currentSort = sort ? `sort=${sort}` : '';
+  const currentFilterPrice = filterPrice ? `filter=price_${filterPrice[0]}-${filterPrice[1]}` : '';
 
-  const res = axios.get(`${API_URL}/products?${currentPage}&${currentLimit}&${currentSort}`);
+  const res = axios.get(`${API_URL}/products?${currentPage}&${currentLimit}&${currentSort}&${currentFilterPrice}`);
   return res;
 };
 

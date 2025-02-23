@@ -28,7 +28,8 @@ export const fetchProducts = () => async (
     const { data } = await API.fetchProducts(
       products.page,
       products.limit,
-      products.sort?.code ?? undefined
+      products.sort?.code ?? undefined,
+      products.filter.price ?? undefined,
     );
 
     if (data === undefined) {

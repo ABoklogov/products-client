@@ -1,0 +1,12 @@
+.title {
+  display: block;
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.priceHeader {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}

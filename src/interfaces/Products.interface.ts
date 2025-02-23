@@ -30,3 +30,26 @@ export interface DataAddProduct {
   description: string | null;
   sale: number | null;
 };
+
+export interface ProductsState {
+  items: Product[];
+  total: number;
+  page: number;
+  limit: number;
+  sort: SortOptions | null;
+  filter: {
+    price: [number, number] | null,
+    description: boolean | null,
+    sale: boolean | null,
+    picture: boolean | null,
+    [key: string]: boolean | [number, number] | null,
+  },
+  isLoading: boolean;
+  isLoadingAddProduct: boolean;
+  error: string;
+};
+export interface DetailsProductState {
+  product: Product | null;
+  isLoading: boolean;
+  error: string;
+};

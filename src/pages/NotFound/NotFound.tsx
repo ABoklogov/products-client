@@ -1,10 +1,8 @@
-// import { useEffect, useRef } from 'react';
-
+import s from './NotFound.module.css';
 
 function NotFound() {
- 
   return (
-    <div>NotFound</div>
+    <div className={s.notFound}>404</div>
   );
 }
 

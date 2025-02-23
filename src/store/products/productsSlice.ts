@@ -2,26 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { PAGE_OPTIONS } from 'constants/pagenation';
 import { DataProducts } from 'interfaces/Api.interface';
-import { OthersFilters, Product, SortOptions } from 'interfaces/Products.interface';
-
-
-interface ProductsState {
-  items: Product[];
-  total: number;
-  page: number;
-  limit: number;
-  sort: SortOptions | null;
-  filter: {
-    price: [number, number] | null,
-    description: boolean | null,
-    sale: boolean | null,
-    picture: boolean | null,
-    [key: string]: boolean | [number, number] | null,
-  },
-  isLoading: boolean;
-  isLoadingAddProduct: boolean;
-  error: string;
-};
+import { OthersFilters, Product, ProductsState, SortOptions } from 'interfaces/Products.interface';
 
 const initialState: ProductsState = {
   items: [],

@@ -19,7 +19,7 @@ function App() {
       <Suspense fallback={<ProgressSpinner />}>
         <Routes>
           <Route index element={<Products />} />
-          <Route path='/:id' element={<CardProduct />} />
+          <Route path='product/:id' element={<CardProduct />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </Suspense>

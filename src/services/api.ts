@@ -14,6 +14,7 @@ type FetchProducts = (
 ) => Promise<AxiosResponse<DataProducts>>;
 type DeleteProduct = (id: number) => Promise<AxiosResponse<Product>>;
 type AddProduct = (body: DataAddProduct) => Promise<AxiosResponse<Product>>;
+type FetchProduct = (id: number) => Promise<AxiosResponse<Product>>;
 
 const fetchProducts: FetchProducts = async function (
   page, 
@@ -51,6 +52,11 @@ const fetchProducts: FetchProducts = async function (
   return res;
 };
 
+const fetchProduct: FetchProduct = async function (id) {
+  const res = axios.get(`${API_URL}/products/${id}`);
+  return res;
+};
+
 const deleteProduct: DeleteProduct = async function (id) {
   const res = axios.delete(`${API_URL}/products/${id}`);
   return res;
@@ -67,4 +73,5 @@ export default {
   fetchProducts,
   deleteProduct,
   addProduct,
+  fetchProduct,
 };

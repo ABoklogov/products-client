@@ -12,6 +12,7 @@ import ListItem from 'components/ListItem';
 import { changeLimit, changePage, deleteProduct, fetchProducts } from 'store/products/productsOperations';
 import { PAGE_OPTIONS } from 'constants/pagenation';
 import { setPage } from 'store/products/productsSlice';
+import { useNavigate } from 'react-router';
 
 interface Props {
   products: Product[];
@@ -19,6 +20,7 @@ interface Props {
 
 function Main({ products }: Props) {
   const dispatch = useAppDispatch();
+  let navigate = useNavigate();
   const layout = useAppSelector(state => state.view.value);
   const total = useAppSelector(state => state.products.total);
   const limit = useAppSelector(state => state.products.limit);
@@ -31,13 +33,17 @@ function Main({ products }: Props) {
     dispatch(changeLimit(event.rows));
   };
 
+  const showDetailProduct = (id: number) => {
+    navigate(`/product/${id}`);
+  };
+
   const itemTemplate = (product: Product, layout: View) => {
     if (!product) return;
 
     return layout === View.LIST ? (
-      <ListItem product={product} onDeleteProduct={onDeleteProduct}/>
+      <ListItem product={product} onDeleteProduct={onDeleteProduct} showDetailProduct={showDetailProduct}/>
     ) : (
-      <GridItem product={product} onDeleteProduct={onDeleteProduct}/>
+      <GridItem product={product} onDeleteProduct={onDeleteProduct} showDetailProduct={showDetailProduct}/>
     );
   };
 

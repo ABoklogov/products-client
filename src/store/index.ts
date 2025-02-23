@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { productsSlice } from './products/productsSlice';
 import { viewSlice } from './view/viewSlice';
+import { detailsProductSlice } from './detailProduct/detailProductSlice';
 
 export const store = configureStore({
   reducer: {
     [productsSlice.name]: productsSlice.reducer,
     [viewSlice.name]: viewSlice.reducer,
+    [detailsProductSlice.name]: detailsProductSlice.reducer,
   },
 });
 

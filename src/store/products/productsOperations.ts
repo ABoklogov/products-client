@@ -51,7 +51,7 @@ export const fetchProducts = () => async (
   };
 };
 
-export const addProduct = (body: DataAddProduct) => async (dispatch: Dispatch, getState: () => RootState) => {
+export const addProduct = (body: DataAddProduct) => async (dispatch: Dispatch) => {
   try {
     dispatch(setLoadingAddProduct(true));
     const { data } = await API.addProduct(body);

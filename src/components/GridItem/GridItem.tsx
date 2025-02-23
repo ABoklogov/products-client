@@ -6,11 +6,12 @@ import s from './GridItem.module.css';
 interface Props {
   product: Product;
   onDeleteProduct: (id: number) => void;
+  showDetailProduct: (id: number) => void;
 };
 
-function GridItem({ product, onDeleteProduct}: Props) {
+function GridItem({ product, onDeleteProduct, showDetailProduct}: Props) {
   return (
-    <div className="col-12 sm:col-6 lg:col-12 xl:col-4 p-2" key={product.id}>
+    <div className="col-12 sm:col-6 lg:col-12 xl:col-4 p-2 cursor-pointer" key={product.id} onClick={() => showDetailProduct(product.id)}>
       <div className="p-4 border-1 surface-border surface-card border-round">
         <div className="flex flex-wrap align-items-center justify-content-between gap-2">
           <div className="flex align-items-center gap-2">
@@ -24,7 +25,7 @@ function GridItem({ product, onDeleteProduct}: Props) {
           <div className="text-2xl font-bold">{product.name}</div>
         </div>
         <div className="flex align-items-center justify-content-between">
-          <span className="text-2xl font-semibold">${product.price}</span>
+          <span className="text-2xl font-semibold">{product.price} $</span>
           
         </div>
       </div>

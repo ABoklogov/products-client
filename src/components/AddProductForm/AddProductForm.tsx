@@ -1,4 +1,4 @@
-import { useAppDispatch } from 'store/hooks';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Button } from 'primereact/button';
@@ -7,6 +7,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { DataAddProduct } from "interfaces/Products.interface";
 import { addProduct, fetchProducts } from "store/products/productsOperations";
 import { toggleSidbar } from "store/view/viewSlice";
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 interface Props {
   showToast: (options: any) => void;
@@ -14,11 +15,11 @@ interface Props {
 
 function AddEventForm({ showToast }: Props) {
   const dispatch = useAppDispatch();
+  const isLoading = useAppSelector(state => state.products.isLoadingAddProduct);
 
   const {
     register,
     handleSubmit,
-    watch,
     reset,
     formState: { errors },
   } = useForm<DataAddProduct>()
@@ -50,56 +51,60 @@ function AddEventForm({ showToast }: Props) {
         Добавление товара
       </div>
 
-      <div className="card flex flex-column">
-        <div className="mb-4 w-12">
-          <InputText 
-            {...register("name", { required: true })}
-            placeholder="Название *" 
-            className="w-12"
-          />
-          {errors.name && <span className={s.error}>Поле обязательное для заполнения</span>}
-        </div>
+      {isLoading ? (
+        <ProgressSpinner style={{margin: '0 auto', display: 'block'}}/> 
+      ) : (
+        <div className="card flex flex-column">
+          <div className="mb-4 w-12">
+            <InputText 
+              {...register("name", { required: true })}
+              placeholder="Название *" 
+              className="w-12"
+            />
+            {errors.name && <span className={s.error}>Поле обязательное для заполнения</span>}
+          </div>
 
-        <div className="mb-4 w-12">
-          <InputText 
-            {...register("vendorCode", { required: true })}
-            placeholder="Артикул *" 
-            className="w-12"
-          />
-          {errors.vendorCode && <span className={s.error}>Поле обязательное для заполнения</span>}
-        </div>
+          <div className="mb-4 w-12">
+            <InputText 
+              {...register("vendorCode", { required: true })}
+              placeholder="Артикул *" 
+              className="w-12"
+            />
+            {errors.vendorCode && <span className={s.error}>Поле обязательное для заполнения</span>}
+          </div>
 
-        <div className="mb-4 w-12">
-          <InputText 
-            {...register("price", { required: true })}
-            placeholder="Цена *" 
-            keyfilter="int"
-            className="w-12"
-          />
-          {errors.price && <span className={s.error}>Поле обязательное для заполнения</span>}
-        </div>
+          <div className="mb-4 w-12">
+            <InputText 
+              {...register("price", { required: true })}
+              placeholder="Цена *" 
+              keyfilter="int"
+              className="w-12"
+            />
+            {errors.price && <span className={s.error}>Поле обязательное для заполнения</span>}
+          </div>
 
-        <div className="mb-4 w-12">
-          <InputText 
-            {...register("sale")}
-            placeholder="Скидка" 
-            keyfilter="int"
-            className="w-12"
-          />
-        </div>
+          <div className="mb-4 w-12">
+            <InputText 
+              {...register("sale")}
+              placeholder="Скидка" 
+              keyfilter="int"
+              className="w-12"
+            />
+          </div>
 
-        <div className="mb-4 w-12">
-          <InputTextarea 
-            {...register("description")}
-            placeholder="Описание" 
-            className="w-12"
-            rows={5} 
-            cols={30}
-          />
-        </div>
+          <div className="mb-4 w-12">
+            <InputTextarea 
+              {...register("description")}
+              placeholder="Описание" 
+              className="w-12"
+              rows={5} 
+              cols={30}
+            />
+          </div>
 
-        <Button type="submit" label="Добавить" onClick={handleSubmit(onSubmit)}/>
-      </div>
+          <Button type="submit" label="Добавить" onClick={handleSubmit(onSubmit)}/>
+        </div>
+      )}
     </div>
   )
 };

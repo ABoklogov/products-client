@@ -7,11 +7,12 @@ import s from './ListItem.module.css';
 interface Props {
   product: Product;
   onDeleteProduct: (id: number) => void;
+  showDetailProduct: (id: number) => void;
 };
 
-function ListItem({ product, onDeleteProduct }: Props) {
+function ListItem({ product, onDeleteProduct, showDetailProduct }: Props) {
   return (
-    <div className="col-12" key={product.id}>
+    <div className="col-12 cursor-pointer" key={product.id} onClick={() => showDetailProduct(product.id)}>
       <div className={s.deleteButton}>
         <Button icon="pi pi-times" rounded text severity="danger" aria-label="Cancel" onClick={() => onDeleteProduct(product.id)} />
       </div>
@@ -28,7 +29,7 @@ function ListItem({ product, onDeleteProduct }: Props) {
             </div>
           </div>
           <div className="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-            <span className="text-2xl font-semibold">${product.price}</span>
+            <span className="text-2xl font-semibold">{product.price} $</span>
           </div>
         </div>
       </div>

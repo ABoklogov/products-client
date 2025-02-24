@@ -2,7 +2,7 @@ import s from './FiltersView.module.css';
 import { Button } from 'primereact/button';
 import FilterPrice from 'components/FilterPrice';
 import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { clearFilters, setFilterPrice, setOthersFilters } from 'store/products/productsSlice';
 import { toggleSidbarFilter } from 'store/view/viewSlice';
 import { Checkbox, CheckboxChangeEvent } from "primereact/checkbox";
@@ -103,7 +103,13 @@ function FiltersView() {
           <div className="flex flex-column gap-3">
             {OTHERS_FILTERS.map((filter) => (
                 <div key={filter.key} className="flex align-items-center">
-                  <Checkbox inputId={filter.key} name="category" value={filter} onChange={onFiltersChange} checked={selectedFilters.some((item) => item.key === filter.key)} />
+                  <Checkbox 
+                    inputId={filter.key} 
+                    name="category" 
+                    value={filter} 
+                    onChange={onFiltersChange} 
+                    checked={selectedFilters.some((item) => item.key === filter.key)} 
+                  />
                   <label htmlFor={filter.key} className="ml-2">
                     {filter.name}
                   </label>

@@ -1,7 +1,6 @@
 import { useRef } from 'react';
-import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { Product } from 'interfaces/Products.interface';
-import s from './CardList.module.css';
 import { Paginator, PaginatorPageChangeEvent } from 'primereact/paginator';
 import { Toast } from 'primereact/toast';
 import { DataView } from 'primereact/dataview';

@@ -3,8 +3,6 @@ import { setLocalStorage } from 'helpers/setLocalStorage';
 import { getLocalStorage } from 'helpers/getLocalStorage';
 import { setView } from './viewSlice';
 import { View } from 'interfaces/View';
-import { Sort, SortOptions } from 'interfaces/Products.interface';
-import { setSort } from 'store/products/productsSlice';
 
 const KEY_VIEW = 'view';
 

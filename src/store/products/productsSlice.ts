@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { PAGE_OPTIONS } from 'constants/pagenation';
 import { DataProducts } from 'interfaces/Api.interface';
-import { OthersFilters, Product, ProductsState, SortOptions } from 'interfaces/Products.interface';
+import { OthersFilters, ProductsState, SortOptions } from 'interfaces/Products.interface';
 
 const initialState: ProductsState = {
   items: [],

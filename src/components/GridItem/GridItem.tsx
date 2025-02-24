@@ -1,7 +1,6 @@
 import { Product } from 'interfaces/Products.interface';
 import ImageProduct from 'components/ImageProduct';
 import { Button } from 'primereact/button';
-import s from './GridItem.module.css';
 import { Tag } from 'primereact/tag';
 import Price from 'components/Price';
 

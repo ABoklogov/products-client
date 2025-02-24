@@ -1,7 +1,7 @@
 import { DataViewLayoutOptions } from 'primereact/dataview';
 import s from './Header.module.css';
 import { View } from 'interfaces/View';
-import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { changeView } from 'store/view/viewOperations';
 import { Dropdown } from 'primereact/dropdown';
 import React from 'react';

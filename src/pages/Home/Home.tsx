@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { ProgressSpinner } from 'primereact/progressspinner';
-import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { calcLimit, calcPage, calcSort, fetchProducts } from 'store/products/productsOperations';
 import { toggleSidbar, toggleSidbarFilter } from 'store/view/viewSlice';
 import AddProductForm from 'components/AddProductForm';

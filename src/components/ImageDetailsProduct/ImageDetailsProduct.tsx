@@ -1,6 +1,6 @@
 import { API_URL } from 'constants/urls';
 import s from './ImageDetailsProduct.module.css';
-import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { Button } from 'primereact/button';
 import { deletePicture, updatePicture } from 'store/detailProduct/detailProductOperations';
 import { Dialog } from 'primereact/dialog';

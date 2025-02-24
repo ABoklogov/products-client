@@ -2,6 +2,8 @@ import { Product } from 'interfaces/Products.interface';
 import ImageProduct from 'components/ImageProduct';
 import { Button } from 'primereact/button';
 import s from './GridItem.module.css';
+import { Tag } from 'primereact/tag';
+import Price from 'components/Price';
 
 interface Props {
   product: Product;
@@ -25,8 +27,10 @@ function GridItem({ product, onDeleteProduct, showDetailProduct}: Props) {
           <div className="text-2xl font-bold">{product.name}</div>
         </div>
         <div className="flex align-items-center justify-content-between">
-          <span className="text-2xl font-semibold">{product.price} $</span>
-          
+          <Price product={product}/>
+          {product.sale && (
+            <Tag icon="pi pi-percentage" severity="danger" value={product.sale}></Tag>
+          )}
         </div>
       </div>
     </div>

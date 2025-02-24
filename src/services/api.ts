@@ -16,6 +16,7 @@ type DeleteProduct = (id: number) => Promise<AxiosResponse<Product>>;
 type AddProduct = (body: DataAddProduct) => Promise<AxiosResponse<Product>>;
 type FetchProduct = (id: number) => Promise<AxiosResponse<Product>>;
 type DeletePicture = (id: number) => Promise<AxiosResponse<Product>>;
+type UpdatePicture = (id: number, formData: FormData) => Promise<AxiosResponse<Product>>;
 
 const fetchProducts: FetchProducts = async function (
   page, 
@@ -75,10 +76,16 @@ const deletePicture: DeletePicture = async function (id) {
   return res;
 };
 
+const updatePicture: UpdatePicture = async function (id, formData) {
+  const res = axios.patch(`${API_URL}/products/picture/update/${id}`, formData);
+  return res;
+};
+
 export default {
   fetchProducts,
   deleteProduct,
   addProduct,
   fetchProduct,
   deletePicture,
+  updatePicture,
 };

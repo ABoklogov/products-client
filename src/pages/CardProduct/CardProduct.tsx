@@ -6,6 +6,8 @@ import { useAppDispatch, useAppSelector } from "store/hooks";
 import s from './CardProduct.module.css';
 import { ProgressSpinner } from "primereact/progressspinner";
 import ImageDetailsProduct from "components/ImageDetailsProduct";
+import { Tag } from "primereact/tag";
+import Price from "components/Price";
 
 function CardProduct() {
   let { id } = useParams();
@@ -17,13 +19,18 @@ function CardProduct() {
     if (id) dispatch(fetchProduct(+id));
   }, []);
   
-
   const footer = (
-    <>
-      <span className="text-2xl font-semibold">
-        {product?.price} $
-      </span>
-    </>
+    <div className={s.footer}>
+      <Price product={product}/>
+      {product?.sale && (
+        <Tag 
+          className="mt-2" 
+          icon="pi pi-percentage" 
+          severity="danger" 
+          value={product.sale}
+        ></Tag>
+      )}
+    </div>
   );
 
   return (

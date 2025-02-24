@@ -41,3 +41,23 @@ export const deletePicture = (id: number) => async (dispatch: Dispatch) => {
     };
   };
 };
+
+export const updatePicture = (id: number, formData: FormData) => async (dispatch: Dispatch) => {
+  try {
+    dispatch(setLoading(true));
+    const { data } = await API.updatePicture(id, formData);
+
+    if (data === undefined) {
+      throw new Error('Server Error!');
+    } else {
+      dispatch(setLoading(false));
+      dispatch(setError(''));
+      dispatch(setProduct(data));
+    };
+  } catch (error) {
+    if (error instanceof Error) {
+      dispatch(setLoading(false));
+      dispatch(setError(error.message));
+    };
+  };
+};

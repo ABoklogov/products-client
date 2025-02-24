@@ -3,6 +3,8 @@ import ImageProduct from 'components/ImageProduct';
 import { classNames } from 'primereact/utils';
 import { Button } from 'primereact/button';
 import s from './ListItem.module.css';
+import { Tag } from 'primereact/tag';
+import Price from 'components/Price';
 
 interface Props {
   product: Product;
@@ -29,7 +31,10 @@ function ListItem({ product, onDeleteProduct, showDetailProduct }: Props) {
             </div>
           </div>
           <div className="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-            <span className="text-2xl font-semibold">{product.price} $</span>
+            <Price product={product}/>
+            {product.sale && (
+              <Tag icon="pi pi-percentage" severity="danger" value={product.sale}></Tag>
+            )}
           </div>
         </div>
       </div>

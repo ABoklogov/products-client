@@ -16,7 +16,17 @@ function ListItem({ product, onDeleteProduct, showDetailProduct }: Props) {
   return (
     <div className="col-12 cursor-pointer" key={product.id} onClick={() => showDetailProduct(product.id)}>
       <div className={s.deleteButton}>
-        <Button icon="pi pi-times" rounded text severity="danger" aria-label="Cancel" onClick={() => onDeleteProduct(product.id)} />
+        <Button 
+          icon="pi pi-times" 
+          rounded 
+          text 
+          severity="danger" 
+          aria-label="Delete" 
+          onClick={(e) => {
+            e.stopPropagation()
+            onDeleteProduct(product.id)
+          }} 
+        />
       </div>
       <div className={classNames('flex flex-column xl:flex-row xl:align-items-start p-4 gap-4')}>
         <ImageProduct image={product.picture} name={product.name} />

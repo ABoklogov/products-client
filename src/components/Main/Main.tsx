@@ -37,6 +37,12 @@ function Main({ products }: Props) {
     navigate(`/product/${id}`);
   };
 
+  const onDeleteProduct = async (id: number) => {
+    const res = await dispatch(deleteProduct(id));
+    if (page > 1 && total > 0) dispatch(setPage(page - 1));
+    if (res) dispatch(fetchProducts());
+  };
+  
   const itemTemplate = (product: Product, layout: View) => {
     if (!product) return;
 
@@ -45,12 +51,6 @@ function Main({ products }: Props) {
     ) : (
       <GridItem product={product} onDeleteProduct={onDeleteProduct} showDetailProduct={showDetailProduct}/>
     );
-  };
-
-  const onDeleteProduct = async (id: number) => {
-    const res = await dispatch(deleteProduct(id));
-    if (page > 1 && total > 0) dispatch(setPage(page - 1));
-    if (res) dispatch(fetchProducts());
   };
 
   return (
